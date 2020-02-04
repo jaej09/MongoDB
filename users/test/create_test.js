@@ -6,10 +6,14 @@
  */
 
 const assert = require("assert");
+const User = require("../src/user");
 
 describe("Create records", () => {
   it("saves a user", () => {
     // Whenever Mocha's sees it function, it's going to say ah the user or the developer is trying to run some type of test inside of this function right here.
-    assert(1 + 5 === 2);
+    // 1. Create a new user
+    const joe = new User({ name: "Joe" });
+    // When we use it in combination with the new keyword and assign the result to Joe becomes an instance of user.
+    joe.save();
   });
 });
