@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
  * So again we want to say to Mocha
  * "Hey just hold up for a second pause execution and wait until we have successfully connected to Mongo."
  */
-before(() => {
+before(done => {
   mongoose.connect("mongodb://localhost/users_test", {
     useNewUrlParser: true,
     useUnifiedTopology: true
