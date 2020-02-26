@@ -8,6 +8,10 @@ mongoose.Promise = global.Promise;
  *
  * So again we want to say to Mocha
  * "Hey just hold up for a second pause execution and wait until we have successfully connected to Mongo."
+ *
+ * By using before,
+ * now we're guaranteed that in the case if mongoose takes some long time to connect
+ * we're going to NOT run any of our tests until our connection has been successfully made.
  */
 before(done => {
   mongoose.connect("mongodb://localhost/users_test", {
@@ -17,6 +21,7 @@ before(done => {
 
   mongoose.connection
     .once("open", () => {
+      console.log("✅ Good to go!");
       done();
     })
     .on("error", error => {
@@ -28,11 +33,17 @@ before(done => {
 beforeEach(done => {
   /**
    * Mocha doesn't have any default idea of asynchronous operations.
-   * it just says, i'm going to run all my tests as fast as i can.
-   * we need to make sure that Mocha understands it needs to do a little bit of a pause before it runs the next test.
+   * It just says, i'm going to run all my tests as fast as i can.
+   * We need to make sure Mocha understands that
+   * it needs to do a little bit of a pause before it runs the next test.
    */
 
-  // Take all the records inside of users collection and delete it.
+  /**
+   * Take all the records inside of users collection and delete it.
+   * .drop accepts a callback function
+   * which will be executed once it is done dropping our collection of users.
+   * The function will only be executed once all the users are done with our collection.
+   */
   mongoose.connection.collections.users.drop(() => {
     // Ready to run the next test!
     done();

@@ -10,7 +10,8 @@ const UserSchema = new Schema({
  * second argument (User Schema) - what we expect this collection of users to follow.
  *                                 Anytime working with the user, we expect them to have a name and that name should be a string.
  *
- * variable name (User) - user class along with user model.
+ * variable name (User) - User refer to as user class along with user model.
+ *                        We can use that term interchangeably user class and user model.
  *                        It does not represent any particular user insight or application.
  *                        It represents the entire collection of data that's sitting inside of our database.
  */

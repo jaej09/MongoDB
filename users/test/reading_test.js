@@ -12,6 +12,7 @@ describe("Reading users out of the database", () => {
 
   it("finds all users with a name of joe", done => {
     User.find({ name: "Joe" }).then(users => {
+      // _id 는 objectId 타입이기 때문에 users[0]_id === joe.id returns false.
       assert(users[0]._id.toString() === joe.id.toString());
       done();
     });
