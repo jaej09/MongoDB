@@ -24,11 +24,38 @@ describe("Deleting a user", () => {
 	});
 
 	it("class method remove", (done) => {
-		User.remove({ name: "Joe" }).then(() => User.findOne({ name: "Joe" })).then((user) => {
-			assert(user === undefined);
-			done();
-		});
+		User.deleteOne({ name: "Joe" })
+			.then(() => {
+				// This .then only be executed once the remove operation is completed.
+				User.findOne({ name: "Joe" });
+			})
+			.then((user) => {
+				assert(user === undefined);
+				done();
+			});
 	});
 
-	it("class method findOneAndRemove", () => {});
+	it("class method findOneAndRemove", (done) => {
+		User.findOneAndRemove({ name: "Joe" })
+			.then(() => {
+				// This .then only be executed once the remove operation is completed.
+				User.findOne({ name: "Joe" });
+			})
+			.then((user) => {
+				assert(user === undefined);
+				done();
+			});
+	});
+
+	it("class method findByIdAndRemove", (done) => {
+		User.findByIdAndRemove(joe._id)
+			.then(() => {
+				// This .then only be executed once the remove operation is completed.
+				User.findOne({ name: "Joe" });
+			})
+			.then((user) => {
+				assert(user === undefined);
+				done();
+			});
+	});
 });
