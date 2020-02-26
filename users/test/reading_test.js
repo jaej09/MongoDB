@@ -17,4 +17,13 @@ describe("Reading users out of the database", () => {
       done();
     });
   });
+
+  it("find a user with a particular id", done => {
+    // Do not have to use .toString() method since we are not going to do comparison.
+    // Mongoose knows exactly how to work with that ObjectId thing.
+    User.findOne({ _id: joe._id }).then(user => {
+      assert(user.name === "Joe");
+      done();
+    });
+  });
 });
