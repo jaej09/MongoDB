@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-mongoose.Promise = global.Promise
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
 /**
  * Difference between before and beforeEach is that
@@ -13,40 +13,40 @@ mongoose.Promise = global.Promise
  * now we're guaranteed that in the case if mongoose takes some long time to connect
  * we're going to NOT run any of our tests until our connection has been successfully made.
  */
-before(done => {
-  mongoose.connect('mongodb://localhost/users_test', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  })
+before((done) => {
+	mongoose.connect("mongodb://localhost/users_test", {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false
+	});
 
-  mongoose.connection
-    .once('open', () => {
-      console.log('✅ Good to go!')
-      done()
-    })
-    .on('error', error => {
-      console.warn('Warning', error)
-    })
-})
+	mongoose.connection
+		.once("open", () => {
+			console.log("✅ Good to go!");
+			done();
+		})
+		.on("error", (error) => {
+			console.warn("Warning", error);
+		});
+});
 
 // before testing... execute it first.
-beforeEach(done => {
-  /**
+beforeEach((done) => {
+	/**
    * Mocha doesn't have any default idea of asynchronous operations.
    * It just says, i'm going to run all my tests as fast as i can.
    * We need to make sure Mocha understands that
    * it needs to do a little bit of a pause before it runs the next test.
    */
 
-  /**
+	/**
    * Take all the records inside of users collection and delete it.
    * .drop accepts a callback function
    * which will be executed once it is done dropping our collection of users.
    * The function will only be executed once all the users are done with our collection.
    */
-  mongoose.connection.collections.users.drop(() => {
-    // Ready to run the next test!
-    done()
-  })
-})
+	mongoose.connection.collections.users.drop(() => {
+		// Ready to run the next test!
+		done();
+	});
+});

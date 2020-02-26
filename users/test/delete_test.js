@@ -58,4 +58,16 @@ describe("Deleting a user", () => {
 				done();
 			});
 	});
+
+	it("class method findOneAndDelete instead of findOneAndRemove (Deprecated)", (done) => {
+		User.findOneAndDelete({ name: "Joe" })
+			.then(() => {
+				// This .then only be executed once the remove operation is completed.
+				User.findOne({ name: "Joe" });
+			})
+			.then((user) => {
+				assert(user === undefined);
+				done();
+			});
+	});
 });
