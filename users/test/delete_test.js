@@ -15,10 +15,10 @@ describe("Deleting a user", () => {
 			.remove()
 			.then(() => {
 				// This .then only be executed once the remove operation is completed.
-				User.findOne({ name: "Joe" });
+				return User.findOne({ name: "Joe" });
 			})
 			.then((user) => {
-				assert(user === undefined);
+				assert(user === null);
 				done();
 			});
 	});
@@ -27,10 +27,10 @@ describe("Deleting a user", () => {
 		User.deleteOne({ name: "Joe" })
 			.then(() => {
 				// This .then only be executed once the remove operation is completed.
-				User.findOne({ name: "Joe" });
+				return User.findOne({ name: "Joe" });
 			})
 			.then((user) => {
-				assert(user === undefined);
+				assert(user === null);
 				done();
 			});
 	});
@@ -39,10 +39,10 @@ describe("Deleting a user", () => {
 		User.findOneAndRemove({ name: "Joe" })
 			.then(() => {
 				// This .then only be executed once the remove operation is completed.
-				User.findOne({ name: "Joe" });
+				return User.findOne({ name: "Joe" });
 			})
 			.then((user) => {
-				assert(user === undefined);
+				assert(user === null);
 				done();
 			});
 	});
@@ -51,10 +51,10 @@ describe("Deleting a user", () => {
 		User.findByIdAndRemove(joe._id)
 			.then(() => {
 				// This .then only be executed once the remove operation is completed.
-				User.findOne({ name: "Joe" });
+				return User.findOne({ name: "Joe" });
 			})
 			.then((user) => {
-				assert(user === undefined);
+				assert(user === null);
 				done();
 			});
 	});
@@ -63,10 +63,10 @@ describe("Deleting a user", () => {
 		User.findOneAndDelete({ name: "Joe" })
 			.then(() => {
 				// This .then only be executed once the remove operation is completed.
-				User.findOne({ name: "Joe" });
+				return User.findOne({ name: "Joe" });
 			})
 			.then((user) => {
-				assert(user === undefined);
+				assert(user === null);
 				done();
 			});
 	});
